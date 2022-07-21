@@ -1,6 +1,5 @@
 import string
 import time
-from tkinter import N
 import pyodbc
 import os
 from flask import Flask, Request, render_template, request, flash
