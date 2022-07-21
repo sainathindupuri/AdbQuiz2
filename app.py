@@ -36,6 +36,22 @@ def showDetails():
     N_smallest_data = cursor.fetchall()
     return render_template('ShowNLargest.html',n=num1, data1 = N_Laragest_data, data2 = N_smallest_data)  
 
+@app.route('/ZTime', methods=['GET', 'POST'])
+def ZTime():
+    cursor = connection.cursor()   
+    time1 = request.form.get("time1")
+    time2 = request.form.get("time2")
+
+    query_str = "SELECT top 1 b.net,count(a.id) from dbo.ds a join dbo.dsi b on a.id = b.id where DATEPART(HOUR, a.time) >="+time1+" AND DATEPART(HOUR, a.time) <="+time2+" group by b.net order by count(a.id) "
+    cursor.execute(query_str)
+    smallest = cursor.fetchall()
+    query_str = query_str +" desc"
+    print(query_str)
+    cursor.execute(query_str)
+    largest = cursor.fetchall()
+    return render_template('ZTime.html', data1 = smallest, data2=largest)  
+
+
 @app.route('/Show500KmEarthquakes', methods=['GET', 'POST'])
 def show500KmEarthquakes():
     cursor = connection.cursor()   
