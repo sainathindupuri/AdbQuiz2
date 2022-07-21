@@ -71,7 +71,16 @@ def Question11():
     return render_template('Question11.html', rows_count = rows_effected, net = net)  
 
 
- 
+@app.route('/searachquakebylat', methods=['GET', 'POST'])
+def searachquakebylat():
+    lat1 = request.form.get("lat1")
+    lat2 = request.form.get("lat2")
+    long1 = request.form.get("long1")
+    long2 = request.form.get("long2")
+    print("Incoming dates : ", lat1, lat2)
+    cursor.execute("select * from ds inner join dsi on ds.id = dsi.id where latitude between '{}' and '{}' and longitude between '{}' and '{}' ;".format(lat1,lat2,long1,long2))
+    result = cursor.fetchall()
+    return render_template('searachquakebylat.html', list1= result)
 
 
 if __name__ == '__main__':    
