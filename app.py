@@ -36,7 +36,7 @@ def showDetails():
     N_smallest_data = cursor.fetchall()
     return render_template('ShowNLargest.html',n=num1, data1 = N_Laragest_data, data2 = N_smallest_data)  
 
-@app.route('/ZTime', methods=['GET', 'POST'])
+@app.route('/Question13', methods=['GET', 'POST'])
 def ZTime():
     cursor = connection.cursor()   
     time1 = request.form.get("time1")
@@ -49,40 +49,26 @@ def ZTime():
     print(query_str)
     cursor.execute(query_str)
     largest = cursor.fetchall()
-    return render_template('ZTime.html', data1 = smallest, data2=largest)  
+    return render_template('Question13.html', data1 = smallest, data2=largest)  
 
 
-@app.route('/Show500KmEarthquakes', methods=['GET', 'POST'])
-def show500KmEarthquakes():
-    cursor = connection.cursor()   
-    degree = (500/111)
-    latMax = 32.7355816 + degree
-    latMin = 32.7355816- degree
-    longMax = -97.1071186 + degree
-    longMin = -97.1071186 - degree   
-    param_data = (latMax,latMin,longMax,longMin)
-    print(" limits are ",param_data)
-    cursor.execute("select * from dbo.all_month where latitude <= ? AND latitude >= ? AND longitude <= ? AND longitude >= ?" , param_data)
-
-    data = cursor.fetchall()
-    print(len(data))
-    return render_template('Show500KmEarthquakes.html', data = data)  
+ 
 
 
-@app.route('/QuakesGreaterThan3', methods=['GET', 'POST'])
-def quakesGreaterThan3():
-    cursor = connection.cursor()   
-    startDate = request.form.get("dateStart")
-    endDate = request.form.get("dateEnd")
-    print("Start date : ",startDate,"Type is ",type(startDate))
-    startDate = startDate.replace("-","/")
-    endDate = endDate.replace("-","/")
-    print("Start date : ",startDate,"Type is ",type(startDate))
-    query_string = "select * from all_month where time >= '"+startDate+"' and time <= '"+endDate+"'  AND mag > 3"
-    cursor.execute(query_string)
-    data = cursor.fetchall()
-    print(len(data))
-    return render_template('QuakesGreaterThan3.html', data = data)  
+@app.route('/Question11', methods=['GET', 'POST'])
+def Question11():
+    cursor = connection.cursor()    
+    net = request.form.get("net")
+    min_mag = request.form.get("magMin")   
+    max_mag = request.form.get("magMax")
+    newMag = request.form.get("newMag")
+
+    query_str = "UPDATE  dbo.ds SET mag ="+newMag+" where id in (SELECT a.id from dbo.ds a join dbo.dsi b on a.id = b.id where b.net = '"+net+"' ) and mag <=" +max_mag+" and mag>="+min_mag 
+    cursor.execute(query_str)
+    rows_effected = cursor.rowcount
+    cursor.commit()
+    print("rows ",rows_effected)
+    return render_template('Question11.html', rows_count = rows_effected, net = net)  
 
 
  
