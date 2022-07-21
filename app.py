@@ -1,5 +1,6 @@
 import string
 import time
+from tkinter import N
 import pyodbc
 import os
 from flask import Flask, Request, render_template, request, flash
@@ -19,10 +20,22 @@ def Hello():
 @app.route('/ShowNLargest', methods=['GET', 'POST'])
 def showDetails():
     cursor = connection.cursor()    
-    num1 = int(request.form.get("num1"))    
-    cursor.execute("select top {} * from dbo.all_month ORDER BY MAG DESC".format(num1))
-    data = cursor.fetchall()
-    return render_template('ShowNLargest.html', data = data)  
+    num1 = request.form.get("num1")
+    min_mag = request.form.get("magMin")
+   
+    max_mag = request.form.get("magMax")
+
+    print("max",max_mag)
+    print("min",min_mag)
+    param_data = (num1,max_mag,min_mag)
+    query_str = "select top "+num1+" a.id, b.place, a.mag from dbo.ds a join dbo.dsi b on a.id = b.id where a.mag <="+max_mag+" and a.mag >="+min_mag 
+
+    print(query_str)
+    cursor.execute(query_str+" ORDER BY a.mag DESC")
+    N_Laragest_data = cursor.fetchall()
+    cursor.execute(query_str+" ORDER BY a.mag ASC")
+    N_smallest_data = cursor.fetchall()
+    return render_template('ShowNLargest.html',n=num1, data1 = N_Laragest_data, data2 = N_smallest_data)  
 
 @app.route('/Show500KmEarthquakes', methods=['GET', 'POST'])
 def show500KmEarthquakes():

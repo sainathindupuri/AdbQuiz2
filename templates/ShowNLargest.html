@@ -26,25 +26,50 @@
 </head>
 
 <body>
+
+    <h1> {{n}} Largest earthquakes</h1>
     <div class="ShowAllTable" style="width: 100rem; margin-left: 5rem;margin-right: 5rem; align-items: center;">
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Place Name</th>
                     <th scope="col">Magnitude</th>
-                    <th scope="col">Latitude</th>
-                    <th scope="col">Longitude</th>
-                    <th scope="col">Depth</th>
-                    <th scope="col">Time</th>
+
                 </tr>
             </thead>
-            {% for item in data %}
+            {% for item in data1 %}
             <tbody>
                 <tr>
-                    <td>{{item[4]}}</td>
+                    <td>{{item[0]}}</td>
                     <td>{{item[1]}}</td>
                     <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
+
+                </tr>
+
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
+    <h1>{{n}} smallest Eartquakes</h1>
+
+    <div class="ShowAllTable" style="width: 100rem; margin-left: 5rem;margin-right: 5rem; align-items: center;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Place Name</th>
+                    <th scope="col">Magnitude</th>
+
+                </tr>
+            </thead>
+            {% for item in data2 %}
+            <tbody>
+                <tr>
                     <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
 
                 </tr>
 

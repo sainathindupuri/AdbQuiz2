@@ -49,7 +49,10 @@
                                                 <div class="input-group">
                                                     <input class="form-control mr-sm-2" style="width: 50%;" id="num1"
                                                         name="num1" type="number" placeholder="N" aria-label="Start">
-
+                                                    <input class="form-control mr-sm-2" style="width: 50%;" id="magMin"
+                                                        name="magMin" type="number" placeholder="Min Magnitude" aria-label="Min Magnitude">
+                                                    <input class="form-control mr-sm-2" style="width: 50%;" id="magMax"
+                                                        name="magMax" type="number" placeholder="Maximum Magnitude" aria-label="Maximum Magnitude">
                                                     <button class="btn btn-outline-success my-2 my-sm-0"
                                                         type="submit">Search</button>
                                                 </div>
@@ -90,12 +93,14 @@
                                             <h3>Quakes greater than 3 on Richter scale</h3>
                                             <form action="/QuakesGreaterThan3" , method=post>
                                                 <div class="input-group">
-                                                    <input class="form-control mr-sm-2" style="width: 50%;" id="dateStart"
-                                                        name="dateStart" type="date" placeholder="Name" aria-label="Start Date">
+                                                    <input class="form-control mr-sm-2" style="width: 50%;"
+                                                        id="dateStart" name="dateStart" type="date" placeholder="Name"
+                                                        aria-label="Start Date">
 
-                                                    <input class="form-control mr-sm-2" style="width: 50%;" id="dateStart"
-                                                        name="dateEnd" type="date" placeholder="Age" aria-label="End Date">
-                                                    
+                                                    <input class="form-control mr-sm-2" style="width: 50%;"
+                                                        id="dateStart" name="dateEnd" type="date" placeholder="Age"
+                                                        aria-label="End Date">
+
                                                     <button class="btn btn-outline-success my-2 my-sm-0"
                                                         type="submit">Submit</button>
                                                 </div>
